@@ -22,5 +22,11 @@ function checkStringLength(string, length) {
   return string.length <= length;
 }
 
-export {getRandomNum, getRandomElement, checkStringLength};
+// Проверка нажатой клавиши Esc
+function isEscape(evt) {
+  return evt.key === 'Escape';
+}
+
+
+export {getRandomNum, getRandomElement, checkStringLength, isEscape};
 
