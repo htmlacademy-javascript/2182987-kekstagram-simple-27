@@ -711,6 +711,16 @@ main {
 }
 
 
+.text__description_error{
+  border: 3px solid #c47f00;
+}
+
+.img-upload__errors-output {
+  display: block;
+  margin-top: 15px;
+  color: #c47f00;
+}
+
 /**
   * Кнопка для отправки изображения
   */
