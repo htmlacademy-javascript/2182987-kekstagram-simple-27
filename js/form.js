@@ -1,4 +1,5 @@
 import {checkStringLengthRange, isEscape, isFileImage} from './utils.js';
+import {setEditImgListeners, removeEditImgListeners} from './styling/imageStyling.js';
 import {COMMENT_LENGTHS} from './params.js';
 
 const body = document.querySelector('body');
@@ -10,13 +11,13 @@ const closeUploadBtn = document.querySelector('#upload-cancel');
 const errorsOutput = document.querySelector('.img-upload__errors-output');
 
 // Добавление ошибки
-function setErrors() {
+function setErrors () {
   errorsOutput.classList.remove('hidden');
   errorsOutput.textContent = getFormErrors();
 }
 
 // Удаление ошибки
-function removeErrors() {
+function removeErrors () {
   errorsOutput.classList.add('hidden');
   errorsOutput.textContent = '';
 }
@@ -36,6 +37,7 @@ function showImgEditor () {
   closeUploadBtn.addEventListener('click', closeImgEditor);
   document.addEventListener('keydown', onEscKeydown);
   removeErrors();
+  setEditImgListeners();
 }
 
 // Закрытие редактора фото
@@ -45,9 +47,11 @@ function closeImgEditor () {
   closeUploadBtn.removeEventListener('click', closeImgEditor);
   document.removeEventListener('keydown', onEscKeydown);
   form.reset();
+  removeEditImgListeners();
 }
 
-function getFormErrors() {
+// Получение ошибки формы
+function getFormErrors () {
   if(!isFileImage(uploadImgInput.value)) {
     return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
   }

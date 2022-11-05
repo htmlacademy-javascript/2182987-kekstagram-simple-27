@@ -36,5 +36,10 @@ function isFileImage (filename) {
   return /^.*\.(jpg|jpeg|png|webp)$/i.test(filename);
 }
 
-export {getRandomNum, getRandomElement, checkStringLength, checkStringLengthRange, isEscape, isFileImage};
+// Установка значения полю
+function setValue (input, value) {
+  input.value = value;
+}
+
+export {getRandomNum, getRandomElement, checkStringLength, checkStringLengthRange, isEscape, isFileImage, setValue};
 
