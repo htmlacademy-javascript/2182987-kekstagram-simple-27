@@ -6,6 +6,11 @@ const mainImage = document.querySelector('.img-upload__preview img');
 
 // Масштабирование изображения
 function setImageZoom (evt) {
+  if(evt === undefined) {
+    setValue(zoomValue, `${ZOOM_RANGE.max}%`);
+    mainImage.style.transform = `scale(${parseInt(zoomValue.value, 10) / 100})`;
+    return;
+  }
   if(evt.target.classList.contains('scale__control--bigger') && parseInt(zoomValue.value, 10) <= ZOOM_RANGE.max - ZOOM_RANGE.step) {
     setValue(zoomValue, `${parseInt(zoomValue.value, 10) + ZOOM_RANGE.step}%`);
   }

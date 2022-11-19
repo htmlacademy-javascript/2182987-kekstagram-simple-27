@@ -26,7 +26,7 @@ const sendForm = (evt, onSuccess) => {
         showSubmitSuccess();
         onSuccess();
       } else {
-        throw new Error("Ошибка отравки данных");
+        throw new Error('Ошибка отравки данных');
       }
     })
     .catch(() => {

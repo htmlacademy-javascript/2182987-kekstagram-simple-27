@@ -45,7 +45,7 @@ effectsSlider.noUiSlider.on('update', onSliderChange);
 // Изменение эффекта
 function changeEffect(evt) {
   mainImageWrap.classList.remove(`effects__preview--${currentEffect.name}`);
-  if(evt.target.value === 'none') {
+  if(evt === undefined || evt.target.value === 'none') {
     mainImageWrap.style.filter = 'none';
     effectsSlider.classList.add('hidden');
     currentEffect = IMAGE_EFFECTS.original;
@@ -58,4 +58,9 @@ function changeEffect(evt) {
   setEffectValue(currentEffect.style, currentEffect.max, currentEffect.unit);
 }
 
-export {changeEffect};
+// Сброс до изначальных значений
+function effectReset() {
+  changeEffect();
+}
+
+export {changeEffect, effectReset};

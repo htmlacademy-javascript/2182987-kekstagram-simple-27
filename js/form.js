@@ -2,6 +2,8 @@ import {checkStringLengthRange, isEscape, isFileImage} from './utils.js';
 import {setEditImgListeners, removeEditImgListeners} from './styling/imageStyling.js';
 import {sendForm} from './api/api.js';
 import {COMMENT_LENGTHS} from './params.js';
+import {effectReset} from './styling/effects.js';
+import {setImageZoom} from './styling/scale.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
@@ -49,6 +51,8 @@ function closeImgEditor () {
   document.removeEventListener('keydown', onEscKeydown);
   form.reset();
   removeEditImgListeners();
+  effectReset();
+  setImageZoom();
 }
 
 // Получение ошибки формы
