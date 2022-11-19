@@ -1,5 +1,6 @@
 import {checkStringLengthRange, isEscape, isFileImage} from './utils.js';
 import {setEditImgListeners, removeEditImgListeners} from './styling/imageStyling.js';
+import {sendForm} from './api/api.js';
 import {COMMENT_LENGTHS} from './params.js';
 
 const body = document.querySelector('body');
@@ -65,13 +66,21 @@ function getFormErrors () {
   return false;
 }
 
+function resetForm() {
+  form.reset();
+}
+
 // Отправка формы
 form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   if(getFormErrors()) {
-    evt.preventDefault();
     setErrors();
   } else {
     removeErrors();
+    sendForm(evt, () => {
+      resetForm();
+      closeImgEditor();
+    });
   }
 });
 
