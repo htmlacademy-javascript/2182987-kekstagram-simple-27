@@ -11,7 +11,7 @@ const getPosts = (onSuccess, onError) => {
     });
 };
 
-const sendForm = (evt, onSuccess, onError) => {
+const sendForm = (evt, onSuccess, onError, cb) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   fetch(
@@ -22,6 +22,7 @@ const sendForm = (evt, onSuccess, onError) => {
     },
   )
     .then((response) => {
+      cb();
       if (response.ok) {
         onSuccess();
       } else {

@@ -13,6 +13,7 @@ const postCommentInput = document.querySelector('.text__description');
 const uploadFormOverlay = document.querySelector('.img-upload__overlay');
 const closeUploadBtn = document.querySelector('#upload-cancel');
 const errorsOutput = document.querySelector('.img-upload__errors-output');
+const submitBtn = document.querySelector('.img-upload__submit');
 
 // Добавление ошибки
 function setErrors () {
@@ -95,6 +96,7 @@ form.addEventListener('submit', (evt) => {
   if(getFormErrors()) {
     setErrors();
   } else {
+    submitBtn.setAttribute('disabled', '');
     removeErrors();
     sendForm(evt, () => {
       form.reset();
@@ -105,6 +107,8 @@ form.addEventListener('submit', (evt) => {
       showSubmitError();
       document.removeEventListener('keydown', onEscKeydownCloseEditForm);
       document.addEventListener('keydown', onEscKeydownCloseErrorModal);
+    }, () => {
+      submitBtn.removeAttribute('disabled');
     });
   }
 });
