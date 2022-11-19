@@ -1,4 +1,4 @@
-import {showError, showSubmitError, showSubmitSuccess} from '../messages.js';
+import {showError} from '../messages.js';
 
 const getPosts = (onSuccess, onError) => {
   fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
