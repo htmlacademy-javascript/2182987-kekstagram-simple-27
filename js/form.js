@@ -4,6 +4,7 @@ import {sendForm} from './api/api.js';
 import {COMMENT_LENGTHS} from './params.js';
 import {effectReset} from './styling/effects.js';
 import {setImageZoom} from './styling/scale.js';
+import {showSubmitError, showSubmitSuccess} from './messages.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
@@ -65,7 +66,6 @@ function getFormErrors () {
     postCommentInput.classList.add('text__description_error');
     return 'Длина комментария не может быть меньше 20 символов и больше 140 символов';
   }
-
   postCommentInput.classList.remove('text__description_error');
   return false;
 }

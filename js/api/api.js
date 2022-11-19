@@ -11,7 +11,7 @@ const getPosts = (onSuccess, onError) => {
     });
 };
 
-const sendForm = (evt, onSuccess) => {
+const sendForm = (evt, onSuccess, onError) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   fetch(
@@ -23,14 +23,13 @@ const sendForm = (evt, onSuccess) => {
   )
     .then((response) => {
       if (response.ok) {
-        showSubmitSuccess();
         onSuccess();
       } else {
         throw new Error('Ошибка отравки данных');
       }
     })
     .catch(() => {
-      showSubmitError();
+      onError();
     });
 };
 
