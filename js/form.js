@@ -4,7 +4,7 @@ import {sendForm} from './api/api.js';
 import {COMMENT_LENGTHS} from './params.js';
 import {effectReset} from './styling/effects.js';
 import {setImageZoom} from './styling/scale.js';
-import {showSubmitError, showSubmitSuccess} from './messages.js';
+import {showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess} from './messages.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
@@ -26,11 +26,30 @@ function removeErrors () {
   errorsOutput.textContent = '';
 }
 
-// Функция-прослушка события нажания Esc
-const onEscKeydown = (evt) => {
+// Функция-прослушка события нажания Esc для закрытия формы редактирования
+const onEscKeydownCloseEditForm = (evt) => {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeImgEditor();
+  }
+};
+
+// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
+const onEscKeydownCloseErrorModal = (evt) => {
+  if(isEscape(evt)) {
+    evt.preventDefault();
+    closeTemplateError();
+    document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
+    document.addEventListener('keydown', onEscKeydownCloseEditForm);
+  }
+};
+
+// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
+const onEscKeydownCloseSuccessModal = (evt) => {
+  if(isEscape(evt)) {
+    evt.preventDefault();
+    closeTemplateSuccess();
+    document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
   }
 };
 
@@ -39,7 +58,7 @@ function showImgEditor () {
   body.classList.add('modal-open');
   uploadFormOverlay.classList.remove('hidden');
   closeUploadBtn.addEventListener('click', closeImgEditor);
-  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('keydown', onEscKeydownCloseEditForm);
   removeErrors();
   setEditImgListeners();
 }
@@ -49,7 +68,7 @@ function closeImgEditor () {
   body.classList.remove('modal-open');
   uploadFormOverlay.classList.add('hidden');
   closeUploadBtn.removeEventListener('click', closeImgEditor);
-  document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('keydown', onEscKeydownCloseEditForm);
   form.reset();
   removeEditImgListeners();
   effectReset();
@@ -70,10 +89,6 @@ function getFormErrors () {
   return false;
 }
 
-function resetForm() {
-  form.reset();
-}
-
 // Отправка формы
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
@@ -82,8 +97,14 @@ form.addEventListener('submit', (evt) => {
   } else {
     removeErrors();
     sendForm(evt, () => {
-      resetForm();
+      form.reset();
       closeImgEditor();
+      showSubmitSuccess();
+      document.addEventListener('keydown', onEscKeydownCloseSuccessModal);
+    }, () => {
+      showSubmitError();
+      document.removeEventListener('keydown', onEscKeydownCloseEditForm);
+      document.addEventListener('keydown', onEscKeydownCloseErrorModal);
     });
   }
 });
