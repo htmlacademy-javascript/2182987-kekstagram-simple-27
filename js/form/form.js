@@ -15,6 +15,20 @@ const closeUploadBtn = document.querySelector('#upload-cancel');
 const errorsOutput = document.querySelector('.img-upload__errors-output');
 const submitBtn = document.querySelector('.img-upload__submit');
 
+// Получение ошибки формы
+const getFormErrors = () => {
+  if(!isFileImage(uploadImgInput.value)) {
+    return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
+  }
+
+  if(!checkStringLengthRange(postCommentInput.value, COMMENT_LENGTHS.min, COMMENT_LENGTHS.max)) {
+    postCommentInput.classList.add('text__description_error');
+    return 'Длина комментария не может быть меньше 20 символов и больше 140 символов';
+  }
+  postCommentInput.classList.remove('text__description_error');
+  return false;
+};
+
 // Добавление ошибки
 const setErrors = () => {
   errorsOutput.classList.remove('hidden');
@@ -25,43 +39,6 @@ const setErrors = () => {
 const removeErrors = () => {
   errorsOutput.classList.add('hidden');
   errorsOutput.textContent = '';
-};
-
-// Функция-прослушка события нажания Esc для закрытия формы редактирования
-const onEscKeydownCloseEditForm = (evt) => {
-  if(isEscape(evt)) {
-    evt.preventDefault();
-    closeImgEditor();
-  }
-};
-
-// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-const onEscKeydownCloseErrorModal = (evt) => {
-  if(isEscape(evt)) {
-    evt.preventDefault();
-    closeTemplateError();
-    document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
-    document.addEventListener('keydown', onEscKeydownCloseEditForm);
-  }
-};
-
-// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-const onEscKeydownCloseSuccessModal = (evt) => {
-  if(isEscape(evt)) {
-    evt.preventDefault();
-    closeTemplateSuccess();
-    document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
-  }
-};
-
-// Открытие редактора фото
-const showImgEditor = () => {
-  body.classList.add('modal-open');
-  uploadFormOverlay.classList.remove('hidden');
-  closeUploadBtn.addEventListener('click', closeImgEditor);
-  document.addEventListener('keydown', onEscKeydownCloseEditForm);
-  removeErrors();
-  setEditImgListeners();
 };
 
 // Закрытие редактора фото
@@ -76,18 +53,42 @@ const closeImgEditor = () => {
   setImageZoom();
 };
 
-// Получение ошибки формы
-const getFormErrors = () => {
-  if(!isFileImage(uploadImgInput.value)) {
-    return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
+// Функция-прослушка события нажания Esc для закрытия формы редактирования
+function onEscKeydownCloseEditForm (evt) {
+  if(isEscape(evt)) {
+    evt.preventDefault();
+    closeImgEditor();
   }
+}
 
-  if(!checkStringLengthRange(postCommentInput.value, COMMENT_LENGTHS.min, COMMENT_LENGTHS.max)) {
-    postCommentInput.classList.add('text__description_error');
-    return 'Длина комментария не может быть меньше 20 символов и больше 140 символов';
+// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
+function onEscKeydownCloseErrorModal (evt) {
+  if(isEscape(evt)) {
+    evt.preventDefault();
+    closeTemplateError();
+    document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
+    document.addEventListener('keydown', onEscKeydownCloseEditForm);
   }
-  postCommentInput.classList.remove('text__description_error');
-  return false;
+}
+
+// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
+const onEscKeydownCloseSuccessModal = (evt) => {
+  if(isEscape(evt)) {
+    evt.preventDefault();
+    closeTemplateSuccess();
+    document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
+  }
+};
+
+
+// Открытие редактора фото
+const showImgEditor = () => {
+  body.classList.add('modal-open');
+  uploadFormOverlay.classList.remove('hidden');
+  closeUploadBtn.addEventListener('click', closeImgEditor);
+  document.addEventListener('keydown', onEscKeydownCloseEditForm);
+  removeErrors();
+  setEditImgListeners();
 };
 
 // Отправка формы
