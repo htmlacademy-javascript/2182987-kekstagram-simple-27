@@ -1,5 +1,5 @@
 import {checkStringLengthRange, isEscape, isFileImage} from '../common/utils.js';
-import {setEditImgListeners, removeEditImgListeners} from '../styling/imageStyling.js';
+import {setEditImgListeners, removeEditImgListeners} from '../styling/image-styling.js';
 import {sendForm} from '../api/api.js';
 import {COMMENT_LENGTHS} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
