@@ -16,6 +16,17 @@ noUiSlider.create(effectsSlider, {
   }
 });
 
+// Установка значения для эффекта
+const setEffectValue = (style, value, unit = '') => {
+  effectLevelValue.value = +value;
+  mainImageWrap.style.filter = `${style}(${value}${unit})`;
+};
+
+// Изменение глубины эффекта
+const onSliderChange = () => {
+  setEffectValue(currentEffect.style, effectsSlider.noUiSlider.get(), currentEffect.unit);
+};
+
 // Обновление слайдера с новыми значениями
 const updateSlider = (effect) => {
   effectsSlider.noUiSlider.updateOptions({
@@ -26,17 +37,6 @@ const updateSlider = (effect) => {
       'max': effect.max
     }
   });
-};
-
-// Установка значения для эффекта
-const setEffectValue = (style, value, unit = '') => {
-  effectLevelValue.value = +value;
-  mainImageWrap.style.filter = `${style}(${value}${unit})`;
-};
-
-// Изменение глубины эффекта
-const onSliderChange = () => {
-  setEffectValue(currentEffect.style, effectsSlider.noUiSlider.get(), currentEffect.unit);
 };
 
 // Прослушка изменения значения в слайдере
