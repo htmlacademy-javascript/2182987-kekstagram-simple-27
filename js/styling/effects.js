@@ -17,7 +17,7 @@ noUiSlider.create(effectsSlider, {
 });
 
 // Обновление слайдера с новыми значениями
-function updateSlider(effect) {
+const updateSlider = (effect) => {
   effectsSlider.noUiSlider.updateOptions({
     start: effect.max,
     step: effect.step,
@@ -26,24 +26,24 @@ function updateSlider(effect) {
       'max': effect.max
     }
   });
-}
-
-// Изменение глубины эффекта
-function onSliderChange() {
-  setEffectValue(currentEffect.style, effectsSlider.noUiSlider.get(), currentEffect.unit);
-}
+};
 
 // Установка значения для эффекта
-function setEffectValue(style, value, unit = '') {
+const setEffectValue = (style, value, unit = '') => {
   effectLevelValue.value = +value;
   mainImageWrap.style.filter = `${style}(${value}${unit})`;
-}
+};
+
+// Изменение глубины эффекта
+const onSliderChange = () => {
+  setEffectValue(currentEffect.style, effectsSlider.noUiSlider.get(), currentEffect.unit);
+};
 
 // Прослушка изменения значения в слайдере
 effectsSlider.noUiSlider.on('update', onSliderChange);
 
 // Изменение эффекта
-function changeEffect(evt) {
+const changeEffect = (evt) => {
   mainImageWrap.classList.remove(`effects__preview--${currentEffect.name}`);
   if(evt === undefined || evt.target.value === 'none') {
     mainImageWrap.style.filter = 'none';
@@ -56,11 +56,11 @@ function changeEffect(evt) {
   mainImageWrap.classList.add(`effects__preview--${currentEffect.name}`);
   updateSlider(currentEffect);
   setEffectValue(currentEffect.style, currentEffect.max, currentEffect.unit);
-}
+};
 
 // Сброс до изначальных значений
-function effectReset() {
+const effectReset = () => {
   changeEffect();
-}
+};
 
 export {changeEffect, effectReset};

@@ -5,7 +5,7 @@ const zoomValue = document.querySelector('.scale__control--value');
 const mainImage = document.querySelector('.img-upload__preview img');
 
 // Масштабирование изображения
-function setImageZoom (evt) {
+const setImageZoom = (evt) => {
   if(evt === undefined) {
     setValue(zoomValue, `${ZOOM_RANGE.max}%`);
     mainImage.style.transform = `scale(${parseInt(zoomValue.value, 10) / 100})`;
@@ -18,6 +18,6 @@ function setImageZoom (evt) {
     setValue(zoomValue, `${parseInt(zoomValue.value, 10) - ZOOM_RANGE.step}%`);
   }
   mainImage.style.transform = `scale(${parseInt(zoomValue.value, 10) / 100})`;
-}
+};
 
 export {setImageZoom};

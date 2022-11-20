@@ -16,56 +16,56 @@ const errorsOutput = document.querySelector('.img-upload__errors-output');
 const submitBtn = document.querySelector('.img-upload__submit');
 
 // Добавление ошибки
-function setErrors () {
+const setErrors = () => {
   errorsOutput.classList.remove('hidden');
   errorsOutput.textContent = getFormErrors();
-}
+};
 
 // Удаление ошибки
-function removeErrors () {
+const removeErrors = () => {
   errorsOutput.classList.add('hidden');
   errorsOutput.textContent = '';
-}
+};
 
 // Функция-прослушка события нажания Esc для закрытия формы редактирования
-function onEscKeydownCloseEditForm (evt) {
+const onEscKeydownCloseEditForm = (evt) => {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeImgEditor();
   }
-}
+};
 
 // Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-function onEscKeydownCloseErrorModal (evt) {
+const onEscKeydownCloseErrorModal = (evt) => {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeTemplateError();
     document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
     document.addEventListener('keydown', onEscKeydownCloseEditForm);
   }
-}
+};
 
 // Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-function onEscKeydownCloseSuccessModal (evt) {
+const onEscKeydownCloseSuccessModal = (evt) => {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeTemplateSuccess();
     document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
   }
-}
+};
 
 // Открытие редактора фото
-function showImgEditor () {
+const showImgEditor = () => {
   body.classList.add('modal-open');
   uploadFormOverlay.classList.remove('hidden');
   closeUploadBtn.addEventListener('click', closeImgEditor);
   document.addEventListener('keydown', onEscKeydownCloseEditForm);
   removeErrors();
   setEditImgListeners();
-}
+};
 
 // Закрытие редактора фото
-function closeImgEditor () {
+const closeImgEditor = () => {
   body.classList.remove('modal-open');
   uploadFormOverlay.classList.add('hidden');
   closeUploadBtn.removeEventListener('click', closeImgEditor);
@@ -74,10 +74,10 @@ function closeImgEditor () {
   removeEditImgListeners();
   effectReset();
   setImageZoom();
-}
+};
 
 // Получение ошибки формы
-function getFormErrors () {
+const getFormErrors = () => {
   if(!isFileImage(uploadImgInput.value)) {
     return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
   }
@@ -88,7 +88,7 @@ function getFormErrors () {
   }
   postCommentInput.classList.remove('text__description_error');
   return false;
-}
+};
 
 // Отправка формы
 form.addEventListener('submit', (evt) => {

@@ -5,7 +5,7 @@ const successTemplate = document.querySelector('#success').content.querySelector
 const successModal = successTemplate.cloneNode(true);
 
 // Кастомная ошибка (тостер-уведомление)
-function showError(error = {message: 'Произошла ошибка. Повторите попытку'}) {
+const showError = (error = {message: 'Произошла ошибка. Повторите попытку'}) => {
   const errorBlock = document.createElement('div');
   errorBlock.style.position = 'absolute';
   errorBlock.style.zIndex = '9999';
@@ -29,34 +29,34 @@ function showError(error = {message: 'Произошла ошибка. Повт�
     errorBlock.remove();
   }, 2000);
   body.append(errorBlock);
-}
-
-// Отрытие модали успешной отправки
-function showSubmitError() {
-  errorModal.addEventListener('click', closeTemplateError);
-  body.appendChild(errorModal);
-}
+};
 
 // Закрытие модали успешной отправки
-function closeTemplateError(evt) {
+const closeTemplateError = (evt) => {
   if(evt === undefined || evt.target.classList.contains('error') || evt.target.classList.contains('error__button')) {
     errorModal.removeEventListener('click', closeTemplateError);
     errorModal.remove();
   }
-}
+};
 
-// Отрытие модали ошибки при отправке
-function showSubmitSuccess() {
-  successModal.addEventListener('click', closeTemplateSuccess);
-  body.appendChild(successModal);
-}
+// Отрытие модали успешной отправки
+const showSubmitError = () => {
+  errorModal.addEventListener('click', closeTemplateError);
+  body.appendChild(errorModal);
+};
 
 // Закрытие модали ошибки при отправке
-function closeTemplateSuccess(evt) {
+const closeTemplateSuccess = (evt) => {
   if(evt === undefined || evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
     successModal.removeEventListener('click', closeTemplateSuccess);
     successModal.remove();
   }
-}
+};
+
+// Отрытие модали ошибки при отправке
+const showSubmitSuccess = () => {
+  successModal.addEventListener('click', closeTemplateSuccess);
+  body.appendChild(successModal);
+};
 
 export {showError, showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess};
