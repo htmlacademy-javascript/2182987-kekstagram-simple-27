@@ -1,3 +1,2 @@
-import './thumbnailsRender.js';
-import './form.js';
-
+import './posts/thumbnails-render.js';
+import './form/form.js';
