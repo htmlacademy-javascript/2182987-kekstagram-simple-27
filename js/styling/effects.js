@@ -1,4 +1,4 @@
-import {IMAGE_EFFECTS} from '../params.js';
+import {IMAGE_EFFECTS} from '../common/params.js';
 
 const mainImageWrap = document.querySelector('.img-upload__preview');
 const effectsSlider = document.querySelector('.effect-level__slider');

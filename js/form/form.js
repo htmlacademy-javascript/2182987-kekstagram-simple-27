@@ -1,10 +1,10 @@
-import {checkStringLengthRange, isEscape, isFileImage} from './utils.js';
-import {setEditImgListeners, removeEditImgListeners} from './styling/imageStyling.js';
-import {sendForm} from './api/api.js';
-import {COMMENT_LENGTHS} from './params.js';
-import {effectReset} from './styling/effects.js';
-import {setImageZoom} from './styling/scale.js';
-import {showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess} from './messages.js';
+import {checkStringLengthRange, isEscape, isFileImage} from '../common/utils.js';
+import {setEditImgListeners, removeEditImgListeners} from '../styling/imageStyling.js';
+import {sendForm} from '../api/api.js';
+import {COMMENT_LENGTHS} from '../common/params.js';
+import {effectReset} from '../styling/effects.js';
+import {setImageZoom} from '../styling/scale.js';
+import {showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess} from '../common/messages.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
@@ -28,31 +28,31 @@ function removeErrors () {
 }
 
 // Функция-прослушка события нажания Esc для закрытия формы редактирования
-const onEscKeydownCloseEditForm = (evt) => {
+function onEscKeydownCloseEditForm (evt) {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeImgEditor();
   }
-};
+}
 
 // Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-const onEscKeydownCloseErrorModal = (evt) => {
+function onEscKeydownCloseErrorModal (evt) {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeTemplateError();
     document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
     document.addEventListener('keydown', onEscKeydownCloseEditForm);
   }
-};
+}
 
 // Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-const onEscKeydownCloseSuccessModal = (evt) => {
+function onEscKeydownCloseSuccessModal (evt) {
   if(isEscape(evt)) {
     evt.preventDefault();
     closeTemplateSuccess();
     document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
   }
-};
+}
 
 // Открытие редактора фото
 function showImgEditor () {

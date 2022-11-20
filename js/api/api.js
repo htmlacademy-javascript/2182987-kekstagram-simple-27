@@ -1,8 +1,13 @@
-import {showError} from '../messages.js';
-
+// Получение списка постов с сервера
 const getPosts = (onSuccess, onError) => {
   fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
-    .then((response) => response.json())
+    .then((response) => {
+      if(response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Ошибка получения данных');
+      }
+    })
     .then((data) => {
       onSuccess(data);
     })
@@ -11,6 +16,7 @@ const getPosts = (onSuccess, onError) => {
     });
 };
 
+// Отправка формы на сервер
 const sendForm = (evt, onSuccess, onError, cb) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
@@ -18,7 +24,7 @@ const sendForm = (evt, onSuccess, onError, cb) => {
     'https://27.javascript.pages.academy/kekstagram-simple',
     {
       method: 'POST',
-      body: formData,
+      body: formData
     },
   )
     .then((response) => {
@@ -34,4 +40,4 @@ const sendForm = (evt, onSuccess, onError, cb) => {
     });
 };
 
-export {getPosts, showError, sendForm};
+export {getPosts, sendForm};

@@ -1,5 +1,5 @@
-import {ZOOM_RANGE} from '../params.js';
-import {setValue} from '../utils.js';
+import {ZOOM_RANGE} from '../common/params.js';
+import {setValue} from '../common/utils.js';
 
 const zoomValue = document.querySelector('.scale__control--value');
 const mainImage = document.querySelector('.img-upload__preview img');
