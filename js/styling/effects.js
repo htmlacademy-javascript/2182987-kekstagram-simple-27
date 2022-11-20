@@ -1,18 +1,18 @@
-import {IMAGE_EFFECTS} from '../common/params.js';
+import {ImageEffects} from '../common/params.js';
 
 const mainImageWrap = document.querySelector('.img-upload__preview');
 const effectsSlider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
-let currentEffect = IMAGE_EFFECTS.original;
+let currentEffect = ImageEffects.ORIGINAL;
 
 // Инициализация слайдера
 noUiSlider.create(effectsSlider, {
-  start: IMAGE_EFFECTS.original.max,
-  step: IMAGE_EFFECTS.original.step,
+  start: ImageEffects.ORIGINAL.max,
+  step: ImageEffects.ORIGINAL.step,
   connect: 'lower',
   range: {
-    'min': IMAGE_EFFECTS.original.min,
-    'max': IMAGE_EFFECTS.original.max
+    'min': ImageEffects.ORIGINAL.min,
+    'max': ImageEffects.ORIGINAL.max
   }
 });
 
@@ -48,10 +48,10 @@ const changeEffect = (evt) => {
   if(evt === undefined || evt.target.value === 'none') {
     mainImageWrap.style.filter = 'none';
     effectsSlider.classList.add('hidden');
-    currentEffect = IMAGE_EFFECTS.original;
+    currentEffect = ImageEffects.ORIGINAL;
     return;
   }
-  currentEffect = IMAGE_EFFECTS[evt.target.value];
+  currentEffect = ImageEffects[evt.target.value.toUpperCase()];
   effectsSlider.classList.remove('hidden');
   mainImageWrap.classList.add(`effects__preview--${currentEffect.name}`);
   updateSlider(currentEffect);

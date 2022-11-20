@@ -1,25 +1,25 @@
 // Длина комментария
-const COMMENT_LENGTHS = {
+const commentsLength = {
   min: 20,
   max: 140
 };
 
 // Шаг масштабирования
-const ZOOM_RANGE = {
+const zoomRange = {
   min: 25,
   max: 100,
   step: 25
 };
 
 // Эффекты для фото
-const IMAGE_EFFECTS = {
-  original: {
+const ImageEffects = {
+  ORIGINAL: {
     name: 'original',
     min: 0,
     max: 100,
     step: 1
   },
-  chrome: {
+  CHROME: {
     name: 'chrome',
     style: 'grayscale',
     min : 0,
@@ -27,7 +27,7 @@ const IMAGE_EFFECTS = {
     step: 0.1,
     unit: ''
   },
-  sepia: {
+  SEPIA: {
     name: 'sepia',
     style: 'sepia',
     min : 0,
@@ -35,7 +35,7 @@ const IMAGE_EFFECTS = {
     step: 0.1,
     unit: ''
   },
-  marvin: {
+  MARVIN: {
     name: 'marvin',
     style: 'invert',
     min : 0,
@@ -43,7 +43,7 @@ const IMAGE_EFFECTS = {
     step: 1,
     unit: '%'
   },
-  phobos: {
+  PHOBOS: {
     name: 'phobos',
     style: 'blur',
     min: 0,
@@ -51,7 +51,7 @@ const IMAGE_EFFECTS = {
     step: 0.1,
     unit: 'px'
   },
-  heat: {
+  HEAT: {
     name: 'heat',
     style: 'brightness',
     min: 1,
@@ -61,4 +61,4 @@ const IMAGE_EFFECTS = {
   }
 };
 
-export {COMMENT_LENGTHS, ZOOM_RANGE, IMAGE_EFFECTS};
+export {commentsLength, zoomRange, ImageEffects};
