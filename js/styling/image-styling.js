@@ -6,15 +6,15 @@ const effectsList = document.querySelector('.effects__list');
 
 
 // Добавление прослушки кнопок масштабирования и изменения эффекта
-function setEditImgListeners () {
+const setEditImgListeners = () => {
   scaleControls.addEventListener('click', setImageZoom, false);
   effectsList.addEventListener('change', changeEffect, false);
-}
+};
 
 // Удаление прослушки кнопок масштабирования и изменения эффекта
-function removeEditImgListeners () {
+const removeEditImgListeners = () => {
   scaleControls.removeEventListener('click', setImageZoom);
   effectsList.removeEventListener('change', changeEffect);
-}
+};
 
 export {setEditImgListeners, removeEditImgListeners};
