@@ -21,7 +21,7 @@ const sendForm = (evt, onSuccess, onError, cb) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   fetch(
-    'https://27.javascript.pages.academy/kekstagram-simple1',
+    'https://27.javascript.pages.academy/kekstagram-simple',
     {
       method: 'POST',
       body: formData
@@ -29,11 +29,14 @@ const sendForm = (evt, onSuccess, onError, cb) => {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
+        return response.json();
       } else {
         throw new Error('Ошибка отравки данных');
       }
+    })
+    .then(() => {
       cb();
+      onSuccess();
     })
     .catch(() => {
       onError();
