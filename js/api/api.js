@@ -40,7 +40,6 @@ const sendForm = (evt, onSuccess, onError, cb) => {
     })
     .catch(() => {
       onError();
-      cb();
     });
 };
 

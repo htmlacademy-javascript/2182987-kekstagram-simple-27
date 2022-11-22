@@ -5,6 +5,7 @@ import {commentsLength} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
 import {setImageZoom} from '../styling/scale.js';
 import {showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess} from '../common/messages.js';
+import './demo-image.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
