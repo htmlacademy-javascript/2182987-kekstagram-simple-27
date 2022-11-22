@@ -21,22 +21,23 @@ const sendForm = (evt, onSuccess, onError, cb) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   fetch(
-    'https://27.javascript.pages.academy/kekstagram-simple',
+    'https://27.javascript.pages.academy/kekstagram-simple1',
     {
       method: 'POST',
       body: formData
     },
   )
     .then((response) => {
-      cb();
       if (response.ok) {
         onSuccess();
       } else {
         throw new Error('Ошибка отравки данных');
       }
+      cb();
     })
     .catch(() => {
       onError();
+      cb();
     });
 };
 
