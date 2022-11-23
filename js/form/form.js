@@ -22,7 +22,7 @@ const getFormErrors = () => {
     return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
   }
 
-  if(!checkStringLengthRange(postCommentInput.value, commentsLength.min, commentsLength.max)) {
+  if(!checkStringLengthRange(postCommentInput.value, commentsLength.MIN, commentsLength.MAX)) {
     postCommentInput.classList.add('text__description_error');
     return 'Длина комментария не может быть меньше 20 символов и больше 140 символов';
   }
