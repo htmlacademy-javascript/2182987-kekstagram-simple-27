@@ -1,16 +1,3 @@
-// Длина комментария
-const commentsLength = {
-  min: 20,
-  max: 140
-};
-
-// Шаг масштабирования
-const zoomRange = {
-  min: 25,
-  max: 100,
-  step: 25
-};
-
 // Эффекты для фото
 const ImageEffects = {
   ORIGINAL: {
@@ -59,6 +46,19 @@ const ImageEffects = {
     step: 0.1,
     unit: ''
   }
+};
+
+// Длина комментария
+const commentsLength = {
+  MIN: 20,
+  MAX: 140
+};
+
+// Шаг масштабирования
+const zoomRange = {
+  MIN: 25,
+  MAX: 100,
+  STEP: 25
 };
 
 export {commentsLength, zoomRange, ImageEffects};
