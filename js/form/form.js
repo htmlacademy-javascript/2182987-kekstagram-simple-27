@@ -4,7 +4,7 @@ import {sendForm} from '../api/api.js';
 import {commentsLength} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
 import {setImageZoom} from '../styling/scale.js';
-import {showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess} from '../common/messages.js';
+import {showingSubmitErrorHandler, showingSubmitSuccessHandler, closingTemplateErrorHandler, closingTemplateSuccessHandler} from '../common/messages.js';
 import './demo-image.js';
 
 const body = document.querySelector('body');
@@ -66,7 +66,7 @@ function onEscKeydownCloseEditForm (evt) {
 function onEscKeydownCloseErrorModal (evt) {
   if(isEscape(evt)) {
     evt.preventDefault();
-    closeTemplateError();
+    closingTemplateErrorHandler();
     document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
     document.addEventListener('keydown', onEscKeydownCloseEditForm);
   }
@@ -76,11 +76,10 @@ function onEscKeydownCloseErrorModal (evt) {
 const onEscKeydownCloseSuccessModal = (evt) => {
   if(isEscape(evt)) {
     evt.preventDefault();
-    closeTemplateSuccess();
+    closingTemplateSuccessHandler();
     document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
   }
 };
-
 
 // Открытие редактора фото
 const showImgEditor = () => {
@@ -103,10 +102,10 @@ form.addEventListener('submit', (evt) => {
     sendForm(evt, () => {
       form.reset();
       closeImgEditor();
-      showSubmitSuccess();
+      showingSubmitSuccessHandler();
       document.addEventListener('keydown', onEscKeydownCloseSuccessModal);
     }, () => {
-      showSubmitError();
+      showingSubmitErrorHandler();
       document.removeEventListener('keydown', onEscKeydownCloseEditForm);
       document.addEventListener('keydown', onEscKeydownCloseErrorModal);
     }, () => {
