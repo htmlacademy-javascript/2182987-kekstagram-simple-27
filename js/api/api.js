@@ -39,6 +39,7 @@ const sendForm = (evt, onSuccess, onError, cb) => {
       onSuccess();
     })
     .catch(() => {
+      cb();
       onError();
     });
 };
