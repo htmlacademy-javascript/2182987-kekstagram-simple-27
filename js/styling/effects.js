@@ -2,8 +2,12 @@ import {ImageEffects} from '../common/params.js';
 
 const mainImageWrap = document.querySelector('.img-upload__preview');
 const effectsSlider = document.querySelector('.effect-level__slider');
+const effectsSliderWrapper = document.querySelector('.img-upload__effect-level');
 const effectLevelValue = document.querySelector('.effect-level__value');
 let currentEffect = ImageEffects.ORIGINAL;
+
+// Скрытие родителя слайдера
+effectsSliderWrapper.classList.add('hidden');
 
 // Инициализация слайдера
 noUiSlider.create(effectsSlider, {
@@ -46,6 +50,7 @@ effectsSlider.noUiSlider.on('update', onSliderChange);
 const effectReset = () => {
   mainImageWrap.style.filter = 'none';
   effectsSlider.classList.add('hidden');
+  effectsSliderWrapper.classList.add('hidden');
   currentEffect = ImageEffects.ORIGINAL;
 };
 
@@ -58,6 +63,7 @@ const onChangeEffect = (evt) => {
   }
   currentEffect = ImageEffects[evt.target.value.toUpperCase()];
   effectsSlider.classList.remove('hidden');
+  effectsSliderWrapper.classList.remove('hidden');
   mainImageWrap.classList.add(`effects__preview--${currentEffect.name}`);
   updateSlider(currentEffect);
   setEffectValue(currentEffect.style, currentEffect.max, currentEffect.unit);
