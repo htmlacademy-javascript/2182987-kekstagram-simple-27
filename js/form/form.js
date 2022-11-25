@@ -3,8 +3,9 @@ import {setEditImgListeners, removeEditImgListeners} from '../styling/image-styl
 import {sendForm} from '../api/api.js';
 import {commentsLength} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
-import {setImageZoom} from '../styling/scale.js';
-import {showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess} from '../common/messages.js';
+import {onZoomSectionClick} from '../styling/scale.js';
+import {showErrorModal, showSuccessModal, closeErrorModal, closeSuccessModal} from '../common/messages.js';
+import './demo-image.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('#upload-select-image');
@@ -21,7 +22,7 @@ const getFormErrors = () => {
     return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
   }
 
-  if(!checkStringLengthRange(postCommentInput.value, commentsLength.min, commentsLength.max)) {
+  if(!checkStringLengthRange(postCommentInput.value, commentsLength.MIN, commentsLength.MAX)) {
     postCommentInput.classList.add('text__description_error');
     return 'Длина комментария не может быть меньше 20 символов и больше 140 символов';
   }
@@ -46,47 +47,36 @@ const closeImgEditor = () => {
   body.classList.remove('modal-open');
   uploadFormOverlay.classList.add('hidden');
   closeUploadBtn.removeEventListener('click', closeImgEditor);
-  document.removeEventListener('keydown', onEscKeydownCloseEditForm);
   form.reset();
   removeEditImgListeners();
   effectReset();
-  setImageZoom();
+  onZoomSectionClick();
 };
 
-// Функция-прослушка события нажания Esc для закрытия формы редактирования
-function onEscKeydownCloseEditForm (evt) {
+// Обработчик нажатия на Esc
+const onEscKeydownHandler = (evt) => {
   if(isEscape(evt)) {
     evt.preventDefault();
+    const errorModal = document.querySelector('section.error');
+    const successModal = document.querySelector('section.success');
+    if(errorModal && !successModal) {
+      closeErrorModal();
+      return;
+    } else if(successModal) {
+      closeSuccessModal();
+      return;
+    }
     closeImgEditor();
-  }
-}
-
-// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-function onEscKeydownCloseErrorModal (evt) {
-  if(isEscape(evt)) {
-    evt.preventDefault();
-    closeTemplateError();
-    document.removeEventListener('keydown', onEscKeydownCloseErrorModal);
-    document.addEventListener('keydown', onEscKeydownCloseEditForm);
-  }
-}
-
-// Функция-прослушка события нажания Esc для закрытия модали с ошибкой отправки
-const onEscKeydownCloseSuccessModal = (evt) => {
-  if(isEscape(evt)) {
-    evt.preventDefault();
-    closeTemplateSuccess();
-    document.removeEventListener('keydown', onEscKeydownCloseSuccessModal);
+    document.removeEventListener('keydown', onEscKeydownHandler);
   }
 };
-
 
 // Открытие редактора фото
 const showImgEditor = () => {
   body.classList.add('modal-open');
   uploadFormOverlay.classList.remove('hidden');
   closeUploadBtn.addEventListener('click', closeImgEditor);
-  document.addEventListener('keydown', onEscKeydownCloseEditForm);
+  document.addEventListener('keydown', onEscKeydownHandler);
   removeErrors();
   setEditImgListeners();
 };
@@ -99,15 +89,13 @@ form.addEventListener('submit', (evt) => {
   } else {
     submitBtn.setAttribute('disabled', '');
     removeErrors();
+    document.addEventListener('keydown', onEscKeydownHandler);
     sendForm(evt, () => {
       form.reset();
       closeImgEditor();
-      showSubmitSuccess();
-      document.addEventListener('keydown', onEscKeydownCloseSuccessModal);
+      showSuccessModal();
     }, () => {
-      showSubmitError();
-      document.removeEventListener('keydown', onEscKeydownCloseEditForm);
-      document.addEventListener('keydown', onEscKeydownCloseErrorModal);
+      showErrorModal();
     }, () => {
       submitBtn.removeAttribute('disabled');
     });

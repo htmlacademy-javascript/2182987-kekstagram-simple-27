@@ -31,32 +31,32 @@ const showError = (error = {message: 'Произошла ошибка. Повт�
   body.append(errorBlock);
 };
 
-// Закрытие модали успешной отправки
-const closeTemplateError = (evt) => {
+// Закрытие неуспешной модали
+const closeErrorModal = (evt) => {
   if(evt === undefined || evt.target.classList.contains('error') || evt.target.classList.contains('error__button')) {
-    errorModal.removeEventListener('click', closeTemplateError);
+    errorModal.removeEventListener('click', closeErrorModal);
     errorModal.remove();
   }
 };
 
 // Отрытие модали успешной отправки
-const showSubmitError = () => {
-  errorModal.addEventListener('click', closeTemplateError);
+const showErrorModal = () => {
+  errorModal.addEventListener('click', closeErrorModal);
   body.appendChild(errorModal);
 };
 
 // Закрытие модали ошибки при отправке
-const closeTemplateSuccess = (evt) => {
+const closeSuccessModal = (evt) => {
   if(evt === undefined || evt.target.classList.contains('success') || evt.target.classList.contains('success__button')) {
-    successModal.removeEventListener('click', closeTemplateSuccess);
+    successModal.removeEventListener('click', closeSuccessModal);
     successModal.remove();
   }
 };
 
 // Отрытие модали ошибки при отправке
-const showSubmitSuccess = () => {
-  successModal.addEventListener('click', closeTemplateSuccess);
+const showSuccessModal = () => {
+  successModal.addEventListener('click', closeSuccessModal);
   body.appendChild(successModal);
 };
 
-export {showError, showSubmitError, showSubmitSuccess, closeTemplateError, closeTemplateSuccess};
+export {showError, showErrorModal, showSuccessModal, closeErrorModal, closeSuccessModal};

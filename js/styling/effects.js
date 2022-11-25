@@ -2,8 +2,12 @@ import {ImageEffects} from '../common/params.js';
 
 const mainImageWrap = document.querySelector('.img-upload__preview');
 const effectsSlider = document.querySelector('.effect-level__slider');
+const effectsSliderWrapper = document.querySelector('.img-upload__effect-level');
 const effectLevelValue = document.querySelector('.effect-level__value');
 let currentEffect = ImageEffects.ORIGINAL;
+
+// Скрытие родителя слайдера
+effectsSliderWrapper.classList.add('hidden');
 
 // Инициализация слайдера
 noUiSlider.create(effectsSlider, {
@@ -42,25 +46,27 @@ const updateSlider = (effect) => {
 // Прослушка изменения значения в слайдере
 effectsSlider.noUiSlider.on('update', onSliderChange);
 
+// Сброс до изначальных значений
+const effectReset = () => {
+  mainImageWrap.style.filter = 'none';
+  effectsSlider.classList.add('hidden');
+  effectsSliderWrapper.classList.add('hidden');
+  currentEffect = ImageEffects.ORIGINAL;
+};
+
 // Изменение эффекта
-const changeEffect = (evt) => {
+const onChangeEffect = (evt) => {
   mainImageWrap.classList.remove(`effects__preview--${currentEffect.name}`);
   if(evt === undefined || evt.target.value === 'none') {
-    mainImageWrap.style.filter = 'none';
-    effectsSlider.classList.add('hidden');
-    currentEffect = ImageEffects.ORIGINAL;
+    effectReset();
     return;
   }
   currentEffect = ImageEffects[evt.target.value.toUpperCase()];
   effectsSlider.classList.remove('hidden');
+  effectsSliderWrapper.classList.remove('hidden');
   mainImageWrap.classList.add(`effects__preview--${currentEffect.name}`);
   updateSlider(currentEffect);
   setEffectValue(currentEffect.style, currentEffect.max, currentEffect.unit);
 };
 
-// Сброс до изначальных значений
-const effectReset = () => {
-  changeEffect();
-};
-
-export {changeEffect, effectReset};
+export {onChangeEffect, effectReset};

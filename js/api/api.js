@@ -28,14 +28,18 @@ const sendForm = (evt, onSuccess, onError, cb) => {
     },
   )
     .then((response) => {
-      cb();
       if (response.ok) {
-        onSuccess();
+        return response.json();
       } else {
         throw new Error('Ошибка отравки данных');
       }
     })
+    .then(() => {
+      cb();
+      onSuccess();
+    })
     .catch(() => {
+      cb();
       onError();
     });
 };
