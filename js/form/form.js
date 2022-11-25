@@ -3,7 +3,7 @@ import {setEditImgListeners, removeEditImgListeners} from '../styling/image-styl
 import {sendForm} from '../api/api.js';
 import {commentsLength} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
-import {setImageZoom} from '../styling/scale.js';
+import {onZoomSectionClick} from '../styling/scale.js';
 import {showErrorModal, showSuccessModal, closeErrorModal, closeSuccessModal} from '../common/messages.js';
 import './demo-image.js';
 
@@ -50,7 +50,7 @@ const closeImgEditor = () => {
   form.reset();
   removeEditImgListeners();
   effectReset();
-  setImageZoom();
+  onZoomSectionClick();
 };
 
 // Обработчик нажатия на Esc
