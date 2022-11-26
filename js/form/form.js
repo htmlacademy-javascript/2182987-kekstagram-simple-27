@@ -4,7 +4,7 @@ import {sendForm} from '../api/api.js';
 import {CommentsLength} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
 import {onZoomSectionClick} from '../styling/scale.js';
-import {showErrorModal, showSuccessModal, closeErrorModal, closeSuccessModal} from '../common/messages.js';
+import {showErrorModal, showSuccessModal, onErrorModalClick, onSuccessModalClick} from '../common/messages.js';
 import './demo-image.js';
 
 const body = document.querySelector('body');
@@ -60,10 +60,10 @@ const onEscKeydownHandler = (evt) => {
     const errorModal = document.querySelector('section.error');
     const successModal = document.querySelector('section.success');
     if(errorModal && !successModal) {
-      closeErrorModal();
+      onErrorModalClick();
       return;
     } else if(successModal) {
-      closeSuccessModal();
+      onSuccessModalClick();
       return;
     }
     closeImgEditor();
