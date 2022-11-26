@@ -1,7 +1,7 @@
 import {checkStringLengthRange, isEscape, isFileImage} from '../common/utils.js';
 import {setEditImgListeners, removeEditImgListeners} from '../styling/image-styling.js';
 import {sendForm} from '../api/api.js';
-import {commentsLength} from '../common/params.js';
+import {CommentsLength} from '../common/params.js';
 import {effectReset} from '../styling/effects.js';
 import {onZoomSectionClick} from '../styling/scale.js';
 import {showErrorModal, showSuccessModal, closeErrorModal, closeSuccessModal} from '../common/messages.js';
@@ -22,7 +22,7 @@ const getFormErrors = () => {
     return 'Недопустимый формат файла. Вы можете использовать изображения в одном из перечисленных форматов: jpg, jpeg, png, webp';
   }
 
-  if(!checkStringLengthRange(postCommentInput.value, commentsLength.MIN, commentsLength.MAX)) {
+  if(!checkStringLengthRange(postCommentInput.value, CommentsLength.MIN, CommentsLength.MAX)) {
     postCommentInput.classList.add('text__description_error');
     return 'Длина комментария не может быть меньше 20 символов и больше 140 символов';
   }
