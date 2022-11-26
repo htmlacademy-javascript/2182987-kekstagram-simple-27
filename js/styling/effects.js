@@ -55,7 +55,7 @@ const effectReset = () => {
 };
 
 // Изменение эффекта
-const onChangeEffect = (evt) => {
+const onEffectPreviewClick = (evt) => {
   mainImageWrap.classList.remove(`effects__preview--${currentEffect.name}`);
   if(evt === undefined || evt.target.value === 'none') {
     effectReset();
@@ -69,4 +69,4 @@ const onChangeEffect = (evt) => {
   setEffectValue(currentEffect.style, currentEffect.max, currentEffect.unit);
 };
 
-export {onChangeEffect, effectReset};
+export {onEffectPreviewClick, effectReset};
